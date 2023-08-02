@@ -24,7 +24,6 @@ import {
 
 const ListScreen = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedText, setSelectedText] = useState(null);
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
   const [editingItemId, setEditingItemId] = useState(null);
@@ -47,7 +46,6 @@ const ListScreen = () => {
   if (!items.length) {
     return (
       <View style={{ textAlign: "center" }}>
-        {/* <Text >Start adding items to your list</Text> */}
         <Image
           source={require("../assets/4025692.jpg")}
           style={{
@@ -109,7 +107,7 @@ const ListScreen = () => {
         <TouchableOpacity
           onPress={() => {
             setEditingItemId(item.id);
-            setModalVisible(true); // Show the modal when edit icon is pressed
+            setModalVisible(true);
           }}
         >
           <Icon name="edit" size={24} color="#FF0066" />

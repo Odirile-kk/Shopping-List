@@ -12,7 +12,6 @@ export default function Page() {
   return (
    <Provider store={store}>
    <Stack.Navigator>
-   {/* <Stack.Screen name="Login" component={Login} /> */}
     <Stack.Screen name="Shopping List"  component={ListScreen}
       options={
         {headerStyle: {backgroundColor: '#FF0066'}}

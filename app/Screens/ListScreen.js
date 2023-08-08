@@ -78,17 +78,21 @@ const ListScreen = () => {
   };
 
   const handleSave = async (itemId) => {
-      
     try {
-      console.log(" Start");
-    
-
+      console.log("Start");
+  
       const updatedItem = await editInDatabase(itemId, newText);
-      console.log(" updated in database", updatedItem);
-      console.log(" dispatching editItems action");
-      dispatch(editItems({ id: itemId, text: newText }));
-      console.log(" newText:", newText);
-    
+      console.log("Updated in database", updatedItem);
+  
+      // Update the Redux store with the new text
+      const updatedItems = items.map(item => {
+        if (item.id === itemId) {
+          return { ...item, text: newText };
+        }
+        return item;
+      });
+      dispatch(setItems(updatedItems)); 
+  
       setModalVisible(false);
       console.log("End");
     } catch (error) {
@@ -107,6 +111,7 @@ const ListScreen = () => {
         <TouchableOpacity
           onPress={() => {
             setEditingItemId(item.id);
+            setNewText(item.text); //set initial text
             setModalVisible(true);
           }}
         >
@@ -115,7 +120,7 @@ const ListScreen = () => {
       </View>
     </View>
   );
- 
+
   return (
     <View>
       <FlatList
@@ -136,7 +141,7 @@ const ListScreen = () => {
                 style={styles.modalInput}
               />
               <View style={styles.btnContainer}>
-                <TouchableOpacity onPress={() => handleSave(editingItemId)}>
+                <TouchableOpacity onPress={() => handleSave(editingItemId, newText)}>
                   <Icon name="check-circle" size={30} color="#FF0066" />
                 </TouchableOpacity>
 
